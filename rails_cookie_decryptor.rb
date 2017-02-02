@@ -5,13 +5,17 @@ require 'json'
 
 module Decryptor
   def self.rails_3(cookie_str)
+    default_msg = 'Unable to decrypt.'
+
     cookie_str = URI.unescape(cookie_str)
     data, _digest = cookie_str.split('--')
-    decoded_data = ::Base64.decode64(data)
+    return default_msg unless data.to_s.length
+
+    decoded_data = ::Base64.decode64(data.to_s)
     begin
       result = Marshal.load(decoded_data)
     rescue; end
-    return result || 'Unable to decrypt.'
+    return result || default_msg
   end
 end
 
