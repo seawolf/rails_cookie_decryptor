@@ -14,15 +14,19 @@ module Decryptor
   end
 end
 
-Shoes.app do
-  stack do
+Shoes.app(height: 750) do
+  stack(margin: 10) do
     para("Rails Cookie Decryptor v#{VERSION}", size: 24)
     para('Currently supporting Rails 3 cookies only.')
 
-    para('Enter your cookie data here:')
-    @cookie = edit_box('', width: 500, height: 155)
-    para('... and it will decrypt here:')
-    @output = edit_box('', width: 500, height: 200, state: 'readonly', background: '#DDDDDD')
+    stack(margin_top: 10) do
+      para('Enter your cookie data here:')
+      @cookie = edit_box('', width: 575, height: 150)
+    end
+    stack(margin_top: 10) do
+      para('... and it will decrypt here:')
+      @output = edit_box('', width: 575, height: 250, state: 'readonly')
+    end
 
     @cookie.change do |_editbox|
       @output.text = Decryptor.rails_3(@cookie.text)
