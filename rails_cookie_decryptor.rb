@@ -1,6 +1,7 @@
 VERSION = '1.0.0'
 
 require 'base64'
+require 'json'
 
 module Decryptor
   def self.rails_3(cookie_str)
@@ -29,7 +30,14 @@ Shoes.app(height: 750) do
     end
 
     @cookie.change do |_editbox|
-      @output.text = Decryptor.rails_3(@cookie.text)
+      data = Decryptor.rails_3(@cookie.text)
+      pretty_output = begin
+        JSON.pretty_generate(data)
+      rescue JSON::GeneratorError
+        data
+      end
+
+      @output.text = pretty_output
     end
   end
 end
