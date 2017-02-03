@@ -1,3 +1,4 @@
+APP_TITLE = 'Rails Cookie Decryptor'
 VERSION = '1.0.0'
 
 Shoes.setup do
@@ -54,9 +55,9 @@ module Decryptor
   end
 end
 
-Shoes.app(height: 775) do
+Shoes.app(title: APP_TITLE, height: 775) do
   stack(margin: 10) do
-    para("Rails Cookie Decryptor v#{VERSION}", size: 24, align: "center")
+    para("#{APP_TITLE} v#{VERSION}", size: 24, align: "center")
     para('Currently supporting Rails 2 through 5.', align: "center")
 
     stack(margin_top: 10) do
