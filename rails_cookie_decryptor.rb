@@ -25,6 +25,8 @@ module Decryptor
   DEFAULT_SIGNED_SALT  = "signed encrypted cookie"
 
   def self.from(format, cookie_str, key, salt, salt_signed, key_iter_num)
+    debug "Cookie content: #{cookie_str.inspect}"
+
     if format == AVAILABLE_FORMATS[:rails_2_or_3]
       return rails_3(cookie_str)
     else
@@ -42,7 +44,9 @@ module Decryptor
     decoded_data = ::Base64.decode64(data.to_s)
     begin
       result = Marshal.load(decoded_data)
-    rescue; end
+    rescue => e
+      log_error(e)
+    end
     return result || DEFAULT_MSG
   end
 
@@ -54,14 +58,22 @@ module Decryptor
       secret = key_generator.generate_key(salt)
       sign_secret = key_generator.generate_key(salt_signed)
       encryptor = ::ActiveSupport::MessageEncryptor.new(secret, sign_secret)
-    rescue; end
+    rescue => e
+      log_error(e)
+    end
     return DEFAULT_MSG unless encryptor.present?
 
     begin
       cookie = CGI.unescape(cookie_str)
       result = encryptor.decrypt_and_verify(cookie)
-    rescue; end
+    rescue => e
+      log_error(e)
+    end
     return result || DEFAULT_MSG
+  end
+
+  def self.log_error(e)
+    debug "#{e.class} -- #{e.message} [#{e.backtrace.first}]"
   end
 end
 
