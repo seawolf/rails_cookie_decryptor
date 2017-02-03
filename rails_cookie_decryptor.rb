@@ -1,7 +1,12 @@
 VERSION = '1.0.0'
 
+Shoes.setup do
+  gem 'activesupport', '~> 5.0.0'
+end
+
 require 'base64'
 require 'json'
+require 'active_support'
 
 module Decryptor
   DEFAULT_MSG = 'Unable to decrypt.'.freeze
