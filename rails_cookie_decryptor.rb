@@ -9,6 +9,7 @@ require 'base64'
 require 'json'
 require 'cgi'
 require 'active_support'
+require 'active_support/core_ext/string'
 
 module Decryptor
   DEFAULT_MSG = 'Unable to decrypt.'.freeze
