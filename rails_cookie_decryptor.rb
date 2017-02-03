@@ -1,5 +1,5 @@
 APP_TITLE = 'Rails Cookie Decryptor'
-VERSION = '1.1.0'
+VERSION = '1.1.1'
 
 Shoes.setup do
   gem 'activesupport', '~> 5.0.0'

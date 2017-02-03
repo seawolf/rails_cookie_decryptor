@@ -7,7 +7,13 @@
 
 ### ChangeLog
 
+##### v1.1.1
+
+* fix: unable to access some ActiveSupport methods
+* add: helpful debugging at various points
+
 ##### v1.1.0
+
 * add: support for Rails 4 session cookies (encrypted)
 
 ##### v1.0.0
